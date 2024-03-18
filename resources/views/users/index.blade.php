@@ -5,7 +5,11 @@
 @endsection
 
 @section('navbar')
-    
+    <form action="{{url('/logout')}}" method="POST">
+        @method('DELETE')
+        @csrf
+        <input type="submit" value="Logout">
+    </form>
 @endsection
 
 @section('container')

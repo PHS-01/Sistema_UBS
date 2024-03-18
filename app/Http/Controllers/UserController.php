@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //importações
+use Illuminate\Http\RedirectResponse;
 use Auth;
 use Hash;
 use App\Models\User;
@@ -19,8 +20,8 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        $medicos = User::find(Medico::all('user_id'));
-        $atendentes = User::find(Atendente::all('user_id'));
+        $medicos = Medico::all();
+        $atendentes = Atendente::all();
 
         return view('users.index', [
             'users' => $users,
@@ -35,7 +36,7 @@ class UserController extends Controller
     public function create_register()
     {
         //
-        return view('users.create');
+        return view('users.register');
     }
     public function create_login()
     {
@@ -49,22 +50,27 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        switch ($request->type) {
+            case 'medico':
+                $medico = new Medico;
+                $medico->name = $request->name;
+                $medico->save();
+            break;
 
-        if ($request->type == 'medico') {
-            # code...
-            $medico = new Medico;
-            $medico->user_id = $user->id;
-            $medico->save();
-        }elseif($request->type == 'atendente'){
-            # code...
-            $atendente = new Atendente;
-            $atendente->user_id = $user->id;
-            $atendente->save();
+            case 'atendente':
+                $atendente = new Atendente;
+                $atendente->name = $request->name;
+                $atendente->save();
+            break;
+
+            default:
+                $user = new User;
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->save();
+                Auth::login($user);
+            break;
         }
 
         return redirect('/users');
@@ -102,8 +108,27 @@ class UserController extends Controller
         //
     }
 
-    public function logout()
+    public function login(Request $request): RedirectResponse
     {
-        //
+        if (Auth::attempt(['email' => $request->email, 'password' =>  $request->password,])) {
+            $request->session()->regenerate();
+            
+            // return redirect('/dashboard');
+            return redirect('/users');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+    
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+    
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
     }
 }

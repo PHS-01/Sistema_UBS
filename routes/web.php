@@ -20,6 +20,7 @@ Route::view('/form','layouts.form');
 
 //Rotas principal
 Route::view('/','welcome');
+Route::view('/dashboard','dashboard');
 //Rotas de usuario
 Route::controller(UserController::class)->group(function () {
     //Register
@@ -27,10 +28,10 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/register', 'store');
     //Login
     Route::get('/login', 'create_login');
-    Route::post('/login', 'login');
+    Route::post('/login', 'login')->name('login');
     Route::delete('/logout', 'logout');
 
-    Route::get('/users', 'index');
+    Route::get('/users', 'index')->middleware('auth');
     Route::put('/users/{user}', 'update');
     // Route::patch($uri, $callback);
     Route::delete('/users/{user}', 'destroy');

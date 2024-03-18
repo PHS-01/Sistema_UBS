@@ -1,15 +1,12 @@
 @extends('layouts.form')
 
 @section('title')
-    Cadastro
+    Login
 @endsection
 
-@section('url')action="{{url('/register')}}"@endsection
-@section('method')method="POST"@endsection
+@section('url')action="{{url('/login')}}"@endsection
 
 @section('form')
-    <label for="nome">Nome</label>
-    <input type="text" name="name" placeholder="Nome do Usuario" maxlength="100"  required>
     <label for="email">Email</label>
     <input type="email" name="email" placeholder="Email do Usuario" maxlength="100"  required>
     <label for="password">Senha</label>
@@ -21,5 +18,5 @@
         <option value="atendente">Atendente</option>
     </select>
     <br>
-    <input type="submit" value="Cadastrar">
+    <input type="submit" value="Logar">
 @endsection

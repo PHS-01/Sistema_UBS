@@ -17,7 +17,8 @@
 <body>
     <center>
         <h1>@yield('title', 'Title')</h1>
-        <form class="form" @yield('url') @yield('method')>
+
+        <form class="form" @yield('url') method="POST">
             @csrf
             @yield('form', 'Form')
         </form>
