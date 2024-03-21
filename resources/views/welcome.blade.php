@@ -5,8 +5,13 @@
 @endsection
 
 @section('navbar')
-    <a href="{{url('/register')}}">Entrar</a>
-    <a href="{{url('/login')}}">Login</a>
+    @guest
+        <a href="{{url('/register')}}">Entrar</a>
+        <a href="{{url('/login')}}">Login</a>
+    @endguest
+    @auth
+        <a href="{{url('/dashboard')}}">Dashboard</a>
+    @endauth
 @endsection
 
 @section('container')

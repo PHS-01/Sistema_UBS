@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Perfil 
+    Informação 
 @endsection
 
 @section('navbar')
@@ -9,12 +9,10 @@
 @endsection
 
 @section('container')
-    <h2>Nome: {{Auth::user()->name}}</h2>
-    <p><i>Email: {{Auth::user()->email}}</i></p>
-    <a href="{{url('/logout')}}"><b>Logout</b></a>
+    <h2>Nome: {{$user->name}}</h2>
+    <p><i>Email: {{$user->email}}</i></p>
     <br>
-    <br>
-    <form action="{{url('/users/{user}', ['user' => Auth::user()])}}" method="POST">
+    <form action="{{url('/users/{user}', ['user' => $user])}}" method="POST">
         @method('DELETE')
         @csrf
         <button type="submit">Excluir conta</button>

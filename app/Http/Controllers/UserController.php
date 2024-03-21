@@ -8,8 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Auth;
 use Hash;
 use App\Models\User;
-use App\Models\Medico;
-use App\Models\Atendente;
 
 class UserController extends Controller
 {
@@ -19,15 +17,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
-        $medicos = Medico::all();
-        $atendentes = Atendente::all();
-
-        return view('users.index', [
-            'users' => $users,
-            'medicos' => $medicos,
-            'atendentes' => $atendentes,
-        ]);
+        return view('users.index');
     }
 
     /**
@@ -50,38 +40,26 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        switch ($request->type) {
-            case 'medico':
-                $medico = new Medico;
-                $medico->name = $request->name;
-                $medico->save();
-            break;
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        
+        Auth::login($user);
 
-            case 'atendente':
-                $atendente = new Atendente;
-                $atendente->name = $request->name;
-                $atendente->save();
-            break;
-
-            default:
-                $user = new User;
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->password = Hash::make($request->password);
-                $user->save();
-                Auth::login($user);
-            break;
-        }
-
-        return redirect('/users');
+        return redirect('/dashboard');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
+        return view('users.show', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -113,8 +91,7 @@ class UserController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' =>  $request->password,])) {
             $request->session()->regenerate();
             
-            // return redirect('/dashboard');
-            return redirect('/users');
+            return redirect('/dashboard');
         }
  
         return back()->withErrors([
