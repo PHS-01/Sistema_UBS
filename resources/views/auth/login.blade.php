@@ -1,47 +1,111 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulários Centralizados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #container_form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Altura da tela */
+        }
+        .form-section { display: none; }
+    </style>
+</head>
+<body>
+    <nav class="fixed-top">
+        <a href="{{url('/')}}" class="btn btn-outline-primary">Voltar</a>
+    </nav>
+    <div class="container" id="container_form">
+        <div class="card text-center mx-auto" id="form_card" style="width: 50%;">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" onclick="showForm('Paciente')" href="#">Paciente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" onclick="showForm('Recepcionista')" href="#">Recepcionista</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" onclick="showForm('Medico')" href="#">Médico</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <!-- Formulário de Login de Paciente -->
+                <div id="Paciente" class="form-section">
+                    <h2>Login de Paciente</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="login-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="login-email" placeholder="Digite o email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="login-password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="login-password" placeholder="Digite a senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form>
+                </div>
+        
+                <!-- Formulário de Login de Recepcionista -->
+                <div id="Recepcionista" class="form-section">
+                    <h2>Login de Recepcionista</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="recepcionista-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="recepcionista-email" placeholder="Digite o email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recepcionista-password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="recepcionista-password" placeholder="Digite a senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form>
+                </div>
+        
+                <!-- Formulário de Login de Médico -->
+                <div id="Medico" class="form-section">
+                    <h2>Login de Médico</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="login-cm" class="form-label">CM</label>
+                            <input type="number" class="form-control" id="login-cm" placeholder="Digite o CM" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="medico-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="medico-email" placeholder="Digite o email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="medico-password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="medico-password" placeholder="Digite a senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <script>
+        function showForm(formId) {
+            // Oculta todos os formulários
+            const forms = document.querySelectorAll('.form-section');
+            forms.forEach(form => form.style.display = 'none');
+            
+            // Exibe o formulário selecionado
+            document.getElementById(formId).style.display = 'block';
+        }
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+        // Exibir o formulário de paciente por padrão
+        document.addEventListener("DOMContentLoaded", function() {
+            showForm('Paciente');
+        });
+    </script>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
