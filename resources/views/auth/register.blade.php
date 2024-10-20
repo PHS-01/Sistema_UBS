@@ -1,52 +1,97 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.form')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@section('title', 'Register')
+
+@section('style')
+    <style>
+        #container_form { height: 150vh; }
+    </style>
+@endsection
+
+@section('content_form')
+    <div class="card text-center mx-auto" id="form_card" style="width: 50%;">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showForm('Admin')" href="#">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showForm('Recepcionista')" href="#">Recepcionista</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showForm('Medico')" href="#">Médico</a>
+                </li>
+            </ul>
         </div>
+        <div class="card-body">
+            <!-- Formulário de Cadastro de Admin -->
+            <div id="Admin" class="form-section">
+                <h2>Cadastro de Admin</h2>
+                <form action="{{url('/register')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="type" value="admin">
+                    @foreach(['name' => 'Nome', 'email' => 'Email', 'password' => 'Senha', 'password_confirmation' => 'Confirmação da Senha'] as $field => $label)
+                        <div class="mb-3">
+                            <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>
+                            <input type="{{ $field == 'email' ? 'email' : ($field == 'password_confirmation' || $field == 'password' ? 'password' : 'text') }}" name="{{ $field }}" class="form-control" id="register-{{ $field }}" placeholder="Digite o seu {{ strtolower($label) }}" required value="{{ old($field) }}">
+                            @error($field)
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endforeach
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+            </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <!-- Formulário de Login de Recepcionista -->
+            <div id="Recepcionista" class="form-section">
+                <h2>Login de Recepcionista</h2>
+                <form action="{{url('/register')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="type" value="receptionist">
+                    @foreach(['name' => 'Nome', 'email' => 'Email', 'password' => 'Senha', 'password_confirmation' => 'Confirmação da Senha'] as $field => $label)
+                        <div class="mb-3">
+                            <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>
+                            <input type="{{ $field == 'email' ? 'email' : ( $field == 'password_confirmation'|| $field == 'password' ? 'password' :'text') }}" name="{{ $field }}" class="form-control" id="register-{{ $field }}" placeholder="Digite o seu {{ strtolower($label) }}" required value="{{ old($field) }}">
+                            @error($field)
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endforeach
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
+            </div>
+
+            <!-- Formulário de Login de Médico -->
+            <div id="Medico" class="form-section">
+                <h2>Login de Médico</h2>
+                <form action="{{url('/register')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="type" value="doctor">
+                    @foreach(['name' => 'Nome', 'email' => 'Email', 'password' => 'Senha', 'password_confirmation' => 'Confirmação da Senha'] as $field => $label)
+                        <div class="mb-3">
+                            <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>
+                            <input type="{{ $field == 'email' ? 'email' : ($field == 'password_confirmation' || $field == 'password' ? 'password' : 'text') }}" name="{{ $field }}" class="form-control" id="register-{{ $field }}" placeholder="Digite o seu {{ strtolower($label) }}" required value="{{ old($field) }}">
+                            @error($field)
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endforeach
+
+                    <!-- Campos adicionais para médico -->
+                    @foreach(['cm' => 'CM', 'birth_date' => 'Data de Nascimento', 'address' => 'Endereço', 'status' => 'Status', 'education' => 'Educação', 'hiring_date' => 'Data de Contratação', 'opening_time' => 'Previsão de Atendimento', 'closing_time' => 'Previsão de Encerramento'] as $field => $label)
+                        <div class="mb-3">
+                            <label for="{{ $field }}" class="form-label">{{ $label }}</label>
+                            <input type="{{ $field == 'birth_date' || $field == 'hiring_date' ? 'date' : ($field == 'opening_time' || $field == 'closing_time' ? 'time' : 'text') }}" name="{{ $field }}" class="form-control" id="{{ $field }}" placeholder="Digite o(a) {{ strtolower($label) }}" required>
+                            @error($field)
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endforeach
+
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
+            </div>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+@endsection

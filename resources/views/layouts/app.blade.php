@@ -29,9 +29,18 @@
             @guest
                 <div class="justify-content-end">
                     <a href="{{url('/login')}}" class="btn btn-primary">Login</a>
-                    <a href="#" class="btn btn-outline-primary">Registrar</a>
+                    <a href="{{url('/register')}}" class="btn btn-outline-primary">Registrar</a>
                 </div>
             @endguest
+            @auth
+                <div class="justify-content-end d-flex">
+                    <form action="{{url('/logout')}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger">logout</button>
+                    </form>
+                    <a href="{{url('/profile')}}" class="btn btn-outline-info ms-2">Profile</a>
+                </div>
+            @endauth
         </div>
     </nav>
 

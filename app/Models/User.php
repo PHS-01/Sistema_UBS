@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type',
     ];
 
     /**
@@ -43,5 +44,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function profile()
+    {
+        switch ($this->type) {
+            case 'admin':
+                return $this->hasOne(Admin::class);
+            case 'receptionist':
+                return $this->hasOne(Receptionist::class);
+            case 'doctor':
+                return $this->hasOne(Doctor::class);
+            default:
+                return null;
+        }
     }
 }

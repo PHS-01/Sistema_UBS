@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
 
             // $table->string('type')->default('user');
-            $table->enum('type', ['user', 'patient', 'receptionist', 'doctor'])->default('user');
+            $table->enum('type', ['user', 'admin', 'receptionist', 'doctor'])->default('user');
 
             $table->rememberToken();
             $table->timestamps();

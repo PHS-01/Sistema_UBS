@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Admin;
+use App\Models\Receptionist;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,13 +41,51 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'type' => $request->type,
             'password' => Hash::make($request->password),
         ]);
+
+        switch ($request->type) {
+
+            case 'admin':
+                # code...
+                Admin::create([
+                    'user_id' => $user->id
+                ]);
+                break;
+
+            case 'receptionist':
+                # code...
+                Receptionist::create([
+                    'user_id' => $user->id
+                ]);
+                break;
+
+            case 'doctor':
+                # code...
+                Doctor::create([
+                    'cm' => $request->cm,
+                    'birth_date' => $request->birth_date,
+                    'address' => $request->address,
+                    'status' => $request->status,
+                    'education' => $request->education,
+                    'hiring_date' => $request->hiring_date,
+                    'opening_time' => $request->opening_time,
+                    'closing_time' => $request->closing_time,
+                    'user_id' => $user->id
+                ]);
+
+                break;
+                        
+            default:
+                # code...
+                break;
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect('/dashboard');
     }
 }

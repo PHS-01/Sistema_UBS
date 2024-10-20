@@ -16,11 +16,12 @@ return new class extends Migration
 
             $table->integer('cm')->unique();
             $table->date('birth_date');
-            $table->string('email', 100);
             $table->string('address', 100);
             $table->string('status', 100);
             $table->string('education', 100);
             $table->date('hiring_date');
+            $table->time('opening_time')->nullable()->default('08:00:00');
+            $table->time('closing_time')->nullable()->default('12:00:00');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Receptionist extends Model
+class Service_Sheet extends Model
 {
     //
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'number',         
+        'timeout',
+        'name',                                  
+        'sus_card',
+        'email',
+        'phone_number'
     ];
 }
