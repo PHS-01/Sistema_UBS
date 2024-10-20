@@ -17,7 +17,7 @@
 </head>
 <body>
     <nav class="fixed-top">
-        <a href="{{url('/')}}" class="btn btn-outline-primary m-3">Voltar</a>
+        <a href="{{url()->previous()}}" class="btn btn-outline-primary m-3">Voltar</a>
     </nav>
 
     <div class="container" id="container_form">

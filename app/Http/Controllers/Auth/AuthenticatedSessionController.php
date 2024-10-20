@@ -28,7 +28,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/dashboard');
+        if ($request->type != null) {
+            # code...
+            return redirect('/dashboard');
+        } else {
+            # code...
+            return redirect('/admin');
+        }
     }
 
     /**

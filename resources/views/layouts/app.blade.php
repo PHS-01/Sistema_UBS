@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Title Default')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    @yield('style')
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Meu Projeto</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -25,7 +26,7 @@
                         <a class="nav-link" href="#">Contato</a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
             @guest
                 <div class="justify-content-end">
                     <a href="{{url('/login')}}" class="btn btn-primary">Login</a>
@@ -38,7 +39,7 @@
                         @csrf
                         <button type="submit" class="btn btn-outline-danger">logout</button>
                     </form>
-                    <a href="{{url('/profile')}}" class="btn btn-outline-info ms-2">Profile</a>
+                    <a href="{{url('/profile')}}" class="btn btn-info ms-2">Profile</a>
                 </div>
             @endauth
         </div>
@@ -53,5 +54,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('script')
 </body>
 </html>

@@ -45,6 +45,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        event(new Registered($user));
+
+        Auth::login($user);
+
         switch ($request->type) {
 
             case 'admin':
@@ -52,6 +56,8 @@ class RegisteredUserController extends Controller
                 Admin::create([
                     'user_id' => $user->id
                 ]);
+
+                return redirect('/admin');
                 break;
 
             case 'receptionist':
@@ -59,6 +65,8 @@ class RegisteredUserController extends Controller
                 Receptionist::create([
                     'user_id' => $user->id
                 ]);
+
+                return redirect('/receptionist');
                 break;
 
             case 'doctor':
@@ -75,17 +83,13 @@ class RegisteredUserController extends Controller
                     'user_id' => $user->id
                 ]);
 
+                return redirect('/doctor');
+
                 break;
                         
             default:
                 # code...
                 break;
         }
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect('/dashboard');
     }
 }

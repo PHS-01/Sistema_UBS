@@ -27,6 +27,7 @@
         <!-- Formulário de Login de Admin -->
         <div id="Admin" class="form-section">
             <h2>Login de Admin</h2>
+            <input type="hidden" name="type" value="admin">
             <form action="{{url('/login')}}" method="POST">
                 @csrf
                 @foreach(['email' => 'Email', 'password' => 'Senha'] as $field => $label)
