@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ServiceSheetController;
+use App\Http\Controllers\SchedulingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas de teste de Layout
@@ -11,7 +12,13 @@ Route::view('/layouts/form', 'layouts.form');
 
 // Rotas
 Route::view('/', 'welcome')->middleware('guest');
-Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified']);
+// Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified']);
+Route::get('/dashboard', function () {
+    $schedulings = App\Models\Scheduling::all();  
+    return view('dashboard', compact('schedulings'));
+})->middleware(['auth', 'verified']);
+
+Route::post('/receptionist/create', [PatientController::class, 'store']);
 
 Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::get('', [AdminController::class, 'index']);
@@ -19,13 +26,14 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::post('/create', [AdminController::class, 'store']);
     Route::get('/show/{user}', [AdminController::class, 'show']);
     Route::get('/edit/{user}', [AdminController::class, 'edit']);
+    Route::put('/update/{user}', [AdminController::class, 'update']);
 });
 
-Route::prefix('/sheet')->group(function () {
-    Route::get('/', [ServiceSheetController::class, 'create'])->middleware('guest');
-    Route::post('/', [ServiceSheetController::class, 'store'])->middleware('guest');
-    Route::get('/{service_sheet}', [ServiceSheetController::class, 'show']);
-    Route::delete('/{service_sheet}', [ServiceSheetController::class, 'destroy'])->middleware(['auth']);
+Route::prefix('/scheduling')->middleware('auth')->group(function () {
+    Route::get('/', [SchedulingController::class, 'create']);
+    Route::post('/', [SchedulingController::class, 'store']);
+    // Route::get('/{scheduling}', [SchedulingController::class, 'show']);
+    // Route::delete('/{scheduling}', [SchedulingController::class, 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {

@@ -49,7 +49,7 @@
     <!-- Modal para editar o email -->
     <div class="modal fade" id="editEmailModal" tabindex="-1" aria-labelledby="editEmailLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="" method="POST">
+            <form action="{{url('/admin/update/'.$user->id)}}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-content">
@@ -76,7 +76,7 @@
     @foreach (['cm' => 'CM', 'birth_date' => 'Data de Nascimento', 'address' => 'Endereço', 'status' => 'Status', 'education' => 'Educação', 'hiring_date' => 'Data de Contratação', 'opening_time' => 'Horario de Atendimento', 'closing_time' => 'Horario de Encerramento'] as $field => $label)
         <div class="modal fade" id="edit{{ ucfirst($field) }}Modal" tabindex="-1" aria-labelledby="edit{{ ucfirst($field) }}Label" aria-hidden="true">
             <div class="modal-dialog">
-                <form action="" method="POST">
+                <form action="{{url('/admin/update/'.$user->id)}}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-content">

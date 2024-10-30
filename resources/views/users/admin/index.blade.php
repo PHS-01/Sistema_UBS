@@ -22,6 +22,13 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra das colunas */
         }
 
+        #card_row{
+            border: 1px solid #e0e0e0; /* Bordas das colunas */
+            border-radius: 10px; /* Bordas arredondadas */
+            padding: 20px; /* Espaçamento interno */
+            background-color: #ffffff; /* Cor de fundo */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra das colunas */
+        }
 
         /* Animação ao passar o mouse */
         .user-card:hover {
@@ -121,5 +128,30 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row my-5" id="card_row">
+        <div class="d-flex mb-4">
+            <h2>Pacientes</h2>
+            <a href="{{url('/admin/create/patient')}}" class="btn btn-success me-2 ms-auto btn-lg">Create</a>
+        </div>
+        @foreach($patients as $patient)
+            <div class="user-card card mb-3">
+                <div class="card-body d-flex align-items-center">
+                    <div class="user-info">
+                        <h3 class="mb-1">{{ $patient->name }}</h3>
+                        <small class="text-muted">Paciente</small>
+                    </div>
+                    {{-- <div class="d-flex ms-auto">
+                        <a href="{{url('/admin/show/'.$patient->id)}}" class="btn btn-sm btn-info me-2">Show</a>
+                        <a href="{{url('/admin/edit/'.$patient->id)}}" class="btn btn-sm btn-warning me-2">Edit</a>
+                        <form action="{{ route('profile.destroy', ['user' => $patient->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div> --}}
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection

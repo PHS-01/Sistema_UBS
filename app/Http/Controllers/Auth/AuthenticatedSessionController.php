@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->type != null) {
+        if ($request->type != 'admin') {
             # code...
             return redirect('/dashboard');
         } else {

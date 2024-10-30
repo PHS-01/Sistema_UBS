@@ -30,6 +30,7 @@
             <input type="hidden" name="type" value="admin">
             <form action="{{url('/login')}}" method="POST">
                 @csrf
+                <input type="hidden" name="type" value="admin">
                 @foreach(['email' => 'Email', 'password' => 'Senha'] as $field => $label)
                     <div class="mb-3">
                         <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>

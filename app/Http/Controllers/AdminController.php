@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Receptionist;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Http\Request;
@@ -24,8 +25,9 @@ class AdminController extends Controller
 
         $receptionists = $users->where('type', 'receptionist');
         $doctors = $users->where('type', 'doctor');
+        $patients = Patient::all();
 
-        return view('users.admin.index', compact('receptionists', 'doctors'));
+        return view('users.admin.index', compact('receptionists', 'doctors', 'patients'));
 
     }
 
@@ -122,6 +124,46 @@ class AdminController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        // Validação básica
+        $request->validate([
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        // Atualiza apenas os campos fornecidos para o usuário
+        $user->update([
+            'name' => $request->filled('name') ? $request->name : $user->name,
+            'email' => $request->filled('email') ? $request->email : $user->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+        ]);
+
+        // Verifica e atualiza dados específicos por tipo de usuário
+        switch ($user->type) {
+            case 'admin':
+                // Exemplo: atualiza somente se houver mudanças
+                
+                break;
+
+            case 'receptionist':
+                
+                break;
+
+            case 'doctor':
+                    $user->profile->update([
+                        'cm' => $request->filled('cm') ? $request->cm : $user->profile->cm,
+                        'birth_date' => $request->filled('birth_date') ? $request->birth_date : $user->profile->birth_date,
+                        'address' => $request->filled('address') ? $request->address : $user->profile->address,
+                        'status' => $request->filled('status') ? $request->status : $user->profile->status,
+                        'education' => $request->filled('education') ? $request->education : $user->profile->education,
+                        'hiring_date' => $request->filled('hiring_date') ? $request->hiring_date : $user->profile->hiring_date,
+                        'opening_time' => $request->filled('opening_time') ? $request->opening_time : $user->profile->opening_time,
+                        'closing_time' => $request->filled('closing_time') ? $request->closing_time : $user->profile->closing_time,
+                    ]);
+                break;
+        }
+
+        return redirect('/admin/edit/'.$user->id)->with('success', 'Usuário atualizado com sucesso!');
     }
 
     /**
