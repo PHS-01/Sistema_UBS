@@ -97,7 +97,7 @@ class AdminController extends Controller
                 break;
         }
 
-        return redirect('/admin');
+        return redirect('/admin')->with('success', $type.'criado com sucesso!');
     }
 
     /**
@@ -163,7 +163,7 @@ class AdminController extends Controller
                 break;
         }
 
-        return redirect('/admin/edit/'.$user->id)->with('success', 'Usuário atualizado com sucesso!');
+        return redirect('/admin/edit/'.$user->id)->with('success', $user->type.'atualizado com sucesso!');
     }
 
     /**

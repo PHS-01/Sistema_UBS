@@ -37,7 +37,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('success', 'Usuario editado com sucesso!');
     }
 
     /**
@@ -60,13 +60,13 @@ class ProfileController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
     
-            return Redirect::to('/');
+            return Redirect::to('/')->with('success', 'Usuario deletado com sucesso!');
         } else {
             # code...
             $user->profile->delete();
             $user->delete();
     
-            return Redirect::to('/admin');
+            return Redirect::to('/admin')->with('success', 'Usuario deletado com sucesso!');
         }
         
     }

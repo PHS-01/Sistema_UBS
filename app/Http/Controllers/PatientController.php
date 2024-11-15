@@ -52,9 +52,9 @@ class PatientController extends Controller
 
         if (Auth::user()->type != 'admin') {
             # code...
-            return redirect('/dashboard')->with('success', 'Patient created successfully!');
+            return redirect('/dashboard')->with('success', 'Paciente criado com sucesso!');
         }else{
-            return redirect('/admin')->with('success', 'Patient created successfully!');
+            return redirect('/admin')->with('success', 'Paciente criado com sucesso!');
         }
     }
 

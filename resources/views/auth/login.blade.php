@@ -49,6 +49,7 @@
             <h2>Login de Recepcionista</h2>
             <form action="{{url('/login')}}" method="POST">
                 @csrf
+                <input type="hidden" name="type" value="receptionist">
                 @foreach(['email' => 'Email', 'password' => 'Senha'] as $field => $label)
                     <div class="mb-3">
                         <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>
@@ -67,6 +68,7 @@
             <h2>Login de Médico</h2>
             <form action="{{url('/login')}}" method="POST">
                 @csrf
+                <input type="hidden" name="type" value="doctor">
                 @foreach(['cm' => 'CM', 'email' => 'Email', 'password' => 'Senha'] as $field => $label)
                     <div class="mb-3">
                         <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>

@@ -66,7 +66,7 @@ class RegisteredUserController extends Controller
                     'user_id' => $user->id
                 ]);
 
-                return redirect('/receptionist');
+                return redirect('/dashboard');
                 break;
 
             case 'doctor':
@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
                     'user_id' => $user->id
                 ]);
 
-                return redirect('/doctor');
+                return redirect('/dashboard');
 
                 break;
                         

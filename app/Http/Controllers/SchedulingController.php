@@ -51,7 +51,7 @@ class SchedulingController extends Controller
             'receptionist_id' => Auth::user()->profile->id,
         ]);
 
-        return redirect('/dashboard')->with('success', 'Scheduling created successfully!');
+        return redirect('/dashboard')->with('success', 'Agendamento feito com sucesso!');
     }
 
     /**
@@ -59,7 +59,8 @@ class SchedulingController extends Controller
      */
     public function show(Scheduling $scheduling)
     {
-        
+        $doctor = User::where('id', $scheduling->doctor->user_id)->first();
+        return view('scheduling.show', compact('scheduling', 'doctor'));
     }
 
     /**

@@ -1,0 +1,11 @@
+1. Ajeitar a roda ao cadastrar um novo usuáro ***
+2. Ajeitar a forma de exibição das horas nas consultas agendadas ***
+4. Ao clicar em um agendamento, exibir as informações do mesmo *** 
+    - Ou colocar um botão para tal
+5. Nos cards de agendamentos exibir dados de: ***
+    Paciente
+    Num. Cartão
+    Data da consulta
+    Médico da consulta
+
+3. Deixar todo o sistema (front) em português

@@ -30,10 +30,10 @@ class AuthenticatedSessionController extends Controller
 
         if ($request->type != 'admin') {
             # code...
-            return redirect('/dashboard');
+            return redirect('/dashboard')->with('success', 'Login realizado com sucesso!');
         } else {
             # code...
-            return redirect('/admin');
+            return redirect('/admin')->with('success', 'Login realizado com sucesso!');
         }
     }
 
@@ -48,6 +48,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Logout realizado com sucesso!');;
     }
 }

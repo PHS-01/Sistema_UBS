@@ -32,7 +32,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
 Route::prefix('/scheduling')->middleware('auth')->group(function () {
     Route::get('/', [SchedulingController::class, 'create']);
     Route::post('/', [SchedulingController::class, 'store']);
-    // Route::get('/{scheduling}', [SchedulingController::class, 'show']);
+    Route::get('/show/{scheduling}', [SchedulingController::class, 'show']);
     // Route::delete('/{scheduling}', [SchedulingController::class, 'destroy']);
 });
 
