@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchedulingController;
+use App\Http\Controllers\AnamnesesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,13 @@ Route::prefix('/scheduling')->middleware('auth')->group(function () {
     Route::get('/', [SchedulingController::class, 'create']);
     Route::post('/', [SchedulingController::class, 'store']);
     Route::get('/show/{scheduling}', [SchedulingController::class, 'show']);
+    // Route::delete('/{scheduling}', [SchedulingController::class, 'destroy']);
+});
+
+Route::prefix('/anamnese')->middleware('auth')->group(function () {
+    Route::get('/create/{id}', [AnamnesesController::class, 'create']);
+    Route::post('/create', [AnamnesesController::class, 'store']);
+    Route::get('/show/{scheduling}', [AnamnesesController::class, 'show']);
     // Route::delete('/{scheduling}', [SchedulingController::class, 'destroy']);
 });
 

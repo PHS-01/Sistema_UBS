@@ -88,7 +88,10 @@
                                 <h3 class="mb-1">{{ $scheduling->status }}</h3>
                                 <small class="text-muted">{{ $scheduling->scheduled_at->format('d/m/Y') }}</small>
                             </div>
-                            <a href="{{url('/scheduling/show/'.$scheduling->id)}}" class="btn btn-sm btn-info ms-auto">Show</a>
+                            <a href="{{url('/scheduling/show/'.$scheduling->id)}}" class="btn btn-sm btn-info ms-auto me-1">Show</a>
+                            @if (Auth::user()->type == 'doctor' && $scheduling->doctor_id == Auth::user()->profile->id)
+                                <a href="{{url('/anamnese/create/'.$scheduling->id)}}" class="btn btn-sm btn-info">Anamnese</a>
+                            @endif
                         </div>
                     </div>
                 @endforeach

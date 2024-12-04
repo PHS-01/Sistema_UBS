@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');  
             $table->dateTime('scheduled_at')->unique()->nullable();
             $table->enum('status', ['Pending', 'In Progress', 'Cancelled', 'Completed'])->default('Pending');
+            $table->string('estimated_duration', 30)->nullable();
 
             $table->unsignedBigInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients');
