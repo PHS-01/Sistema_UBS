@@ -12,11 +12,14 @@
             align-items: center;
         }
         .form-section { display: none; }
+        .nav-bar {
+            z-index: 0;
+        }
     </style>
     @yield('style')
 </head>
 <body>
-    <nav class="fixed-top">
+    <nav class="fixed-top nav-bar">
         <a href="{{url()->previous()}}" class="btn btn-outline-primary m-3">Voltar</a>
     </nav>
 
@@ -29,7 +32,7 @@
             // Oculta todos os formulários
             const forms = document.querySelectorAll('.form-section');
             forms.forEach(form => form.style.display = 'none');
-            
+
             // Exibe o formulário selecionado
             document.getElementById(formId).style.display = 'block';
         }
@@ -40,7 +43,7 @@
         });
 
     </script>
-    
+
     @yield('script')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

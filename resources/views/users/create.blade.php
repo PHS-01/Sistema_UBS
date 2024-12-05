@@ -4,7 +4,7 @@
 
 @section('style')
     <style>
-        #container_form { height: 150vh; }
+        /* #container_form { height: 150vh; } */
     </style>
 @endsection
 
@@ -25,28 +25,28 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        @endforeach    
+                        @endforeach
                         @break
                     @case('admin')
-                        
+
                         @break
                     @case('patient')
                         @foreach ([
-                            'name' => 'Nome', 
+                            'name' => 'Nome',
                             'sus_number' => 'Número do cartão do SUS',
                             'birth_date' => 'Data de nacimento',
-                            'phone' => 'Número de telefone', 
+                            'phone' => 'Número de telefone',
                             'address' => 'Endereço'
                         ] as $field => $label)
                             <div class="mb-3">
                                 <label for="register-{{ $field }}" class="form-label">{{ $label }}</label>
-                                <input 
-                                    type="{{ $field === 'sus_number' ? 'number' : ($field === 'birth_date' ? 'date' : 'text') }}" 
-                                    name="{{ $field }}" 
-                                    class="form-control" 
-                                    id="register-{{ $field }}" 
-                                    placeholder="Digite o seu {{ strtolower($label) }}" 
-                                    required 
+                                <input
+                                    type="{{ $field === 'sus_number' ? 'number' : ($field === 'birth_date' ? 'date' : 'text') }}"
+                                    name="{{ $field }}"
+                                    class="form-control"
+                                    id="register-{{ $field }}"
+                                    placeholder="Digite o seu {{ strtolower($label) }}"
+                                    required
                                     value="{{ old($field) }}"
                                 >
                                 @error($field)
@@ -54,7 +54,7 @@
                                 @enderror
                             </div>
                         @endforeach
-                        
+
                         <!-- Campo de seleção de gênero -->
                         <div class="mb-3">
                             <label for="register-gender" class="form-label">Gênero</label>
@@ -67,15 +67,15 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                         <!-- Campo para anotações -->
                         <div class="mb-3">
                             <label for="register-notes" class="form-label">Anotações</label>
-                            <textarea 
-                                name="notes" 
-                                id="register-notes" 
-                                class="form-control" 
-                                cols="15" 
+                            <textarea
+                                name="notes"
+                                id="register-notes"
+                                class="form-control"
+                                cols="15"
                                 rows="5"
                             >{{ old('notes') }}</textarea>
                             @error('notes')
@@ -105,7 +105,7 @@
                             </div>
                         @endforeach
                         @break
-                    @default   
+                    @default
                 @endswitch
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
