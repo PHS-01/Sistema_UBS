@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,7 @@ return new class extends Migration
         Schema::create('schedulings', function (Blueprint $table) {
             $table->id();
 
-            $table->string('description');  
+            $table->string('description');
             $table->dateTime('scheduled_at')->unique()->nullable();
             $table->enum('status', ['Pending', 'In Progress', 'Cancelled', 'Completed'])->default('Pending');
             $table->string('estimated_duration', 30)->nullable();
