@@ -5,13 +5,17 @@
 @section('style')
     <style>
         /* #container_form { height: 150vh; } */
+        .container {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
     </style>
 @endsection
 
 @section('content_form')
     <div class="card text-center mx-auto" style="width: 50%;">
         <div class="card-body">
-            <h2>Create de {{$type}}</h2>
+            <h2>Criar {{$type == 'receptionist' ? "Recepcionista" : ($type == 'doctor' ? "Doutor" : 'Paciente')}}</h2>
             <form action="{{ $type != 'patient' ? url('/admin/create') : url('/receptionist/create') }}" method="POST">
                 @csrf
                 <input type="hidden" name="type" value="{{$type}}">
@@ -107,7 +111,7 @@
                         @break
                     @default
                 @endswitch
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Criar</button>
             </form>
         </div>
     </div>

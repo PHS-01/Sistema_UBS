@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Scheduling;
+use App\Models\Anamneses;
 use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Receptionist;
@@ -60,7 +61,8 @@ class SchedulingController extends Controller
     public function show(Scheduling $scheduling)
     {
         $doctor = User::where('id', $scheduling->doctor->user_id)->first();
-        return view('scheduling.show', compact('scheduling', 'doctor'));
+        $anamnese = Anamneses::where('schedulings_id', $scheduling->id )->first();
+        return view('scheduling.show', compact('scheduling', 'doctor', 'anamnese'));
     }
 
     /**

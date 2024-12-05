@@ -80,7 +80,7 @@
                         @csrf
                         <button type="submit" class="btn btn-outline-danger">Logout</button>
                     </form>
-                    <a href="{{ url('/profile') }}" class="btn btn-info ms-2">Profile</a>
+                    <a href="{{ url('/profile') }}" class="btn btn-info ms-2">Perfil</a>
                 </div>
             @endauth
         </div>

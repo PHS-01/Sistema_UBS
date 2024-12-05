@@ -1,6 +1,6 @@
 @extends('layouts.form')
 
-@section('title', 'Create Anamnese')
+@section('title', 'Criar Anamnese')
 
 @section('style')
     <style>
@@ -11,39 +11,39 @@
 @section('content_form')
     <div class="card text-center mx-auto" style="width: 50%;">
         <div class="card-body">
-            <h2>Criando Anamnese referente a agendamento {{$id}}</h2>
+            <h2>Criar Anamnese</h2>
             <form action="{{ url('/anamnese/create') }}" method="POST">
                 @csrf
                 <input type="hidden" name="schedulings_id" value="{{$id}}">
                 <div class="mb-3">
-                    <label for="chiefComplaint" class="form-label">Chief Complaint</label>
-                    <textarea class="form-control" id="chiefComplaint" name="chief_complaint" rows="3" placeholder="Describe the chief complaint" required></textarea>
+                    <label for="chiefComplaint" class="form-label">Queixa Principal</label>
+                    <textarea class="form-control" id="chiefComplaint" name="chief_complaint" rows="3" placeholder="Descreva a queixa principal" required></textarea>
                 </div>
     
-                <!-- Medical History -->
+                <!-- Histórico Médico -->
                 <div class="mb-3">
-                    <label for="medicalHistory" class="form-label">Historico Medico</label>
-                    <textarea class="form-control" id="medicalHistory" name="medical_history" rows="3" placeholder="Provide the patient's medical history"></textarea>
+                    <label for="medicalHistory" class="form-label">Histórico Médico</label>
+                    <textarea class="form-control" id="medicalHistory" name="medical_history" rows="3" placeholder="Informe o histórico médico do paciente"></textarea>
                 </div>
     
-                <!-- Family History -->
+                <!-- Histórico Familiar -->
                 <div class="mb-3">
-                    <label for="familyHistory" class="form-label">Historico Familiar</label>
-                    <textarea class="form-control" id="familyHistory" name="family_history" rows="3" placeholder="Provide the patient's family history"></textarea>
+                    <label for="familyHistory" class="form-label">Histórico Familiar</label>
+                    <textarea class="form-control" id="familyHistory" name="family_history" rows="3" placeholder="Informe o histórico familiar do paciente"></textarea>
                 </div>
     
-                <!-- Lifestyle Habits -->
+                <!-- Hábitos de Vida -->
                 <div class="mb-3">
-                    <label for="lifestyleHabits" class="form-label">Lifestyle Habits</label>
-                    <textarea class="form-control" id="lifestyleHabits" name="lifestyle_habits" rows="3" placeholder="Describe lifestyle habits (e.g., diet, sleep, physical activity)"></textarea>
+                    <label for="lifestyleHabits" class="form-label">Hábitos de Vida</label>
+                    <textarea class="form-control" id="lifestyleHabits" name="lifestyle_habits" rows="3" placeholder="Descreva os hábitos de vida (ex.: dieta, sono, atividade física)"></textarea>
                 </div>
     
-                <!-- Symptoms -->
+                <!-- Sintomas -->
                 <div class="mb-3">
-                    <label for="symptoms" class="form-label">Symptoms</label>
-                    <textarea class="form-control" id="symptoms" name="symptoms" rows="3" placeholder="List any symptoms reported by the patient"></textarea>
+                    <label for="symptoms" class="form-label">Sintomas</label>
+                    <textarea class="form-control" id="symptoms" name="symptoms" rows="3" placeholder="Liste quaisquer sintomas relatados pelo paciente"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Criar</button>
             </form>
         </div>
     </div>

@@ -75,9 +75,9 @@
             <div class="column-header">
                 <h2>Agendamentos</h2>
                 @if (Auth::user()->type != 'doctor')
-                    <a href="{{ url('/scheduling') }}" class="btn btn-success me-2 ms-auto btn-lg">Create</a>
+                    <a href="{{ url('/scheduling') }}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
                 @else
-                    <a href="{{ url('') }}" class="btn btn-success me-2 ms-auto btn-lg">List</a>
+                    <a href="{{ url('') }}" class="btn btn-success me-2 ms-auto btn-lg">Lista</a>
                 @endif
             </div>
             <div class="column-content">
@@ -88,8 +88,8 @@
                                 <h3 class="mb-1">{{ $scheduling->status }}</h3>
                                 <small class="text-muted">{{ $scheduling->scheduled_at->format('d/m/Y') }}</small>
                             </div>
-                            <a href="{{url('/scheduling/show/'.$scheduling->id)}}" class="btn btn-sm btn-info ms-auto me-1">Show</a>
-                            @if (Auth::user()->type == 'doctor' && $scheduling->doctor_id == Auth::user()->profile->id)
+                            <a href="{{url('/scheduling/show/'.$scheduling->id)}}" class="btn btn-sm btn-info ms-auto me-1">Ver</a>
+                            @if (Auth::user()->type == 'doctor' && $scheduling->doctor_id == Auth::user()->profile->id && $scheduling->status != "Completed")
                                 <a href="{{url('/anamnese/create/'.$scheduling->id)}}" class="btn btn-sm btn-info">Anamnese</a>
                             @endif
                         </div>
@@ -102,9 +102,9 @@
         <div class="col-lg-4 col-md-5 col-sm-12">
             <div class="column-header">
                 <h2>Cadastrar Paciente</h2>
-                <a href="{{ url('/admin/create/patient') }}" class="btn btn-success me-2 ms-auto btn-lg">Create</a>
+                <a href="{{ url('/admin/create/patient') }}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
             </div>
-            <div class="column-content">
+            {{-- <div class="column-content">
                 <div class="card mb-3">
                     <div class="card-body">
                         <p>Espaço reservado 1</p>
@@ -113,7 +113,7 @@
                 <div class="p-3 border bg-light">
                     <h5>Vazio</h5>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

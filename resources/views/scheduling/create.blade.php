@@ -90,7 +90,7 @@
 
                 <div class="d-flex justify-content-center mt-4">
                     <button type="submit" class="btn btn-primary w-50 btn-lg">
-                        Create
+                        Criar
                     </button>
                 </div>
             </form>

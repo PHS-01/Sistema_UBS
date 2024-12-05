@@ -97,7 +97,7 @@ class AdminController extends Controller
                 break;
         }
 
-        return redirect('/admin')->with('success', $type.'criado com sucesso!');
+        return redirect('/admin')->with('success', $request->type.'criado com sucesso!');
     }
 
     /**

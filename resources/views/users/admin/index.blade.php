@@ -75,7 +75,7 @@
         <div class="col-md-4">
             <div class="column-header">
                 <h2>Recepcionistas</h2>
-                <a href="{{url('/admin/create/receptionist')}}" class="btn btn-success me-2 ms-auto btn-lg">Create</a>
+                <a href="{{url('/admin/create/receptionist')}}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
             </div>
             <div class="column-content">
                 @foreach($receptionists as $receptionist)
@@ -86,12 +86,12 @@
                                 <small class="text-muted">Recepcionista</small>
                             </div>
                             <div class="d-flex ms-auto">
-                                <a href="{{url('/admin/show/'.$receptionist->id)}}" class="btn btn-sm btn-info me-2">Show</a>
-                                <a href="{{url('/admin/edit/'.$receptionist->id)}}" class="btn btn-sm btn-warning me-2">Edit</a>
+                                <a href="{{url('/admin/show/'.$receptionist->id)}}" class="btn btn-sm btn-info me-2">Ver</a>
+                                <a href="{{url('/admin/edit/'.$receptionist->id)}}" class="btn btn-sm btn-warning me-2">Editar</a>
                                 <form action="{{ route('profile.destroy', ['user' => $receptionist->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Deletar</button>
                                 </form>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
         <div class="col-md-4">
             <div class="column-header">
                 <h2>Médicos</h2>
-                <a href="{{url('/admin/create/doctor')}}" class="btn btn-success me-2 ms-auto btn-lg">Create</a>
+                <a href="{{url('/admin/create/doctor')}}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
             </div>
             <div class="column-content">
                 @foreach($doctors as $doctor)
@@ -115,12 +115,12 @@
                                 <small class="text-muted">Médico</small>
                             </div>
                             <div class="d-flex ms-auto">
-                                <a href="{{url('/admin/show/'.$doctor->id)}}" class="btn btn-sm btn-info me-2">Show</a>
-                                <a href="{{url('/admin/edit/'.$doctor->id)}}" class="btn btn-sm btn-warning me-2">Edit</a>
+                                <a href="{{url('/admin/show/'.$doctor->id)}}" class="btn btn-sm btn-info me-2">Ver</a>
+                                <a href="{{url('/admin/edit/'.$doctor->id)}}" class="btn btn-sm btn-warning me-2">Editar</a>
                                 <form action="{{ route('profile.destroy', ['user' => $doctor->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Deletar</button>
                                 </form>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
         <div class="col-md-4">
             <div class="column-header">
                 <h2>Pacientes</h2>
-                <a href="{{url('/admin/create/patient')}}" class="btn btn-success me-2 ms-auto btn-lg">Create</a>
+                <a href="{{url('/admin/create/patient')}}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
             </div>
             <div class="column-content">
                 @foreach($patients as $patient)
