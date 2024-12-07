@@ -85,7 +85,7 @@
                     <div class="user-card card mb-3">
                         <div class="card-body d-flex align-items-center">
                             <div class="user-info">
-                                <h3 class="mb-1">{{ $scheduling->status }}</h3>
+                                <h3 class="mb-1">{{ $scheduling->status == 'Completed' ? 'Completo' : ($scheduling->status == 'Pending' ? 'Em espera' : ($scheduling->status == 'In Progress' ? ' Em andamento' : 'Cancelado')) }}</h3>
                                 <small class="text-muted">{{ $scheduling->scheduled_at->format('d/m/Y') }}</small>
                             </div>
                             <a href="{{url('/scheduling/show/'.$scheduling->id)}}" class="btn btn-sm btn-info ms-auto me-1">Ver</a>

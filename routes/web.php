@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchedulingController;
 use App\Http\Controllers\AnamnesesController;
@@ -12,7 +12,11 @@ Route::view('/layouts/app', 'layouts.app');
 Route::view('/layouts/form', 'layouts.form');
 
 // Rotas
-Route::view('/', 'welcome')->middleware('guest');
+Route::get('/', function () {
+    $schedulings = App\Models\Scheduling::whereDate('scheduled_at', now())->get();
+    return view('welcome', compact('schedulings'));
+})->middleware(['guest']);
+
 // Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified']);
 Route::get('/dashboard', function () {
     $schedulings = App\Models\Scheduling::all();  
@@ -22,7 +26,7 @@ Route::get('/dashboard', function () {
 Route::post('/receptionist/create', [PatientController::class, 'store']);
 
 Route::prefix('/admin')->middleware('auth')->group(function () {
-    Route::get('', [AdminController::class, 'index']);
+    Route::get('', [AdminController::class, 'index'])->middleware([IsAdmin::class]);
     Route::get('/create/{type}', [AdminController::class, 'create']);
     Route::post('/create', [AdminController::class, 'store']);
     Route::get('/show/{user}', [AdminController::class, 'show']);

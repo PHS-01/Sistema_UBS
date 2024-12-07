@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4 text-center my-auto">
-                    <h3>{{ $scheduling->status }}</h3>
+                    <h3>{{ $scheduling->status == 'Completed' ? 'Completo' : ($scheduling->status == 'Pending' ? 'Em espera' : ($scheduling->status == 'In Progress' ? ' Em andamento' : 'Cancelado')) }}</h3>
                     <p>{{ $scheduling->scheduled_at->format('d/m/Y') }}</p>
                 </div>
                 <div class="col-md-8">

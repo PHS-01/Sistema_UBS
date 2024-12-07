@@ -6,7 +6,7 @@
     <div class="card w-100">
         <div class="card-header text-center d-flex align-items-center">
             <a href="{{ url('/admin') }}" class="btn btn-outline-primary me-auto">Voltar</a>
-            <h2 class="mx-auto mb-0">Show</h2>
+            <h2 class="mx-auto mb-0">Informações</h2>
         </div>        
         <div class="card-body">
             <div class="row">
