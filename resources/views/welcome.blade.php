@@ -103,8 +103,7 @@
 @section('container')
     <section class="mb-5">
         <div id="div-infor mt-auto">
-            <h1>Bem-vindo ao Meu Projeto!</h1>
-            <p class="lead">Esta é uma página de boas-vindas para o projeto Sistema da UBS.</p>
+            <h1>Bem-vindo ao Sistema UBS!</h1>
         </div>
     </section>
     <section>

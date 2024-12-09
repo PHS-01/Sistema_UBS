@@ -67,7 +67,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Meu Projeto</a>
+            <a class="navbar-brand" href="#">Sistema UBS</a>
             @guest
                 <div class="justify-content-end">
                     <a href="{{ url('/login') }}" class="btn btn-primary">Login</a>
@@ -91,7 +91,7 @@
     </div>
 
     <footer class="text-center mt-5 mb-3">
-        <p>&copy; {{ date('Y') }} Meu Projeto. Todos os direitos reservados.</p>
+        <p>&copy; {{ date('Y') }} Sistema UBS. Todos os direitos reservados.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
