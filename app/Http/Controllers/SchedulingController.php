@@ -19,8 +19,8 @@ class SchedulingController extends Controller
      */
     public function index()
     {
-        // $schedulings = Scheduling::with(['patient', 'doctor', 'receptionist'])->get();
-        // return view('schedulings.index', compact('schedulings'));
+        $schedulings = Scheduling::all();
+        return view('scheduling.index', compact('schedulings'));
     }
 
     /**
@@ -41,7 +41,7 @@ class SchedulingController extends Controller
     {
         $request->validate([
             'description' => ['string'],
-            'scheduled_at' => ['required', 'date', 'unique:schedulings'],
+            'scheduled_at' => ['required', 'date',],
         ]);
 
         Scheduling::create([
@@ -80,7 +80,7 @@ class SchedulingController extends Controller
     {
         $request->validate([
             'description' => ['required', 'string'],
-            'scheduled_at' => ['required', 'date', 'unique:schedulings,scheduled_at,' . $scheduling->id],
+            'scheduled_at' => ['required', 'date', 'scheduled_at,' . $scheduling->id],
             'status' => ['required', 'in:Pending,In Progress,Cancelled,Completed'],
             'patient_id' => ['required', 'exists:patients,id'],
             'doctor_id' => ['required', 'exists:doctors,id'],

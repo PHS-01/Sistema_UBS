@@ -114,7 +114,7 @@
                     <h2>Agendamentos do dia</h2>
                 </div>
                 <div class="column-content">
-                    @if ($schedulings != null)
+                    @if ($schedulings->isNotEmpty())
                         @foreach($schedulings as $scheduling)
                             <div class="user-card">
                                 <div class="card-body d-flex align-items-center">
@@ -135,11 +135,23 @@
                                             {{ $scheduling->scheduled_at->format('d/m/Y') }}
                                         </small>
                                     </div>
+                                    <div class="d-flex ms-auto" style="flex-direction: column">
+                                        <small>
+                                            @foreach ($users as $user)
+                                                @if ($user->id == $scheduling->doctor->user_id)
+                                                    Médico: {{ $user->name }}
+                                                @endif
+                                            @endforeach
+                                        </small>
+                                        <small>
+                                            Paciente: {{ $scheduling->patient->name }}
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                     @else
-                        <h1 class="mt-5">Sem Agendamentos agora!</h1>
+                        <small class="mt-5">Sem Agendamentos agora!</small>
                     @endif
                 </div>
             </div>

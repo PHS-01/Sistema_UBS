@@ -14,12 +14,18 @@ Route::view('/layouts/form', 'layouts.form');
 // Rotas
 Route::get('/', function () {
     $schedulings = App\Models\Scheduling::whereDate('scheduled_at', now())->get();
-    return view('welcome', compact('schedulings'));
+    $users =  App\Models\User::all();
+    return view('welcome', compact('schedulings', 'users'));
 })->middleware(['guest']);
 
 // Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified']);
 Route::get('/dashboard', function () {
-    $schedulings = App\Models\Scheduling::all();  
+    if (Auth::user()->type != 'doctor') {
+        # code...
+        $schedulings = App\Models\Scheduling::whereDate('scheduled_at', now())->get();
+    }else{
+        $schedulings = App\Models\Scheduling::whereDate('scheduled_at', now())->where('doctor_id', Auth::user()->profile->id)->get();
+    }
     return view('dashboard', compact('schedulings'));
 })->middleware(['auth', 'verified']);
 
@@ -35,8 +41,9 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
 });
 
 Route::prefix('/scheduling')->middleware('auth')->group(function () {
-    Route::get('/', [SchedulingController::class, 'create']);
-    Route::post('/', [SchedulingController::class, 'store']);
+    Route::get('', [SchedulingController::class, 'index']);
+    Route::get('/create', [SchedulingController::class, 'create']);
+    Route::post('/create', [SchedulingController::class, 'store']);
     Route::get('/show/{scheduling}', [SchedulingController::class, 'show']);
     // Route::delete('/{scheduling}', [SchedulingController::class, 'destroy']);
 });

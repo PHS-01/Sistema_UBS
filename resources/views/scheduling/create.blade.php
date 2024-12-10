@@ -28,7 +28,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{url('/scheduling') }}" method="POST">
+            <form action="{{url('/scheduling/create') }}" method="POST">
                 @csrf
 
                 @foreach(['scheduled_at' => 'Data do Agendamento', 'description' => 'Observações'] as $field => $label)

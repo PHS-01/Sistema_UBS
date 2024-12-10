@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
 
             $table->string('description');
-            $table->dateTime('scheduled_at')->unique()->nullable();
+            $table->dateTime('scheduled_at')->nullable();
             $table->enum('status', ['Pending', 'In Progress', 'Cancelled', 'Completed'])->default('Pending');
             $table->string('estimated_duration', 30)->nullable();
 

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.form')
 
-@section('title', 'Dashboard')
+@section('title', 'Agendamentos')
 
 @section('style')
     <style>
@@ -14,7 +14,7 @@
         }
         
         /* Estilo para as colunas */
-        .col-md-4, .col-lg-8 {
+        .col {
             border: 1px solid #e0e0e0; /* Bordas das colunas */
             border-radius: 10px; /* Bordas arredondadas */
             padding: 0; /* Removido o padding, será adicionado em containers internos */
@@ -67,53 +67,26 @@
     </style>
 @endsection
 
-@section('container')
-    <h1 class="m-5">Bem-vindo, {{ Auth::user()->type == 'doctor' ? 'Doutor' : 'Recepcionista' }} {{ Auth::user()->name }}!</h1>
-    <div class="row">
+@section('content_form')
+    <div class="row" style="margin-top: 5rem ">
         <!-- Coluna: Agendamentos -->
-        <div class="col-lg-8 col-md-7 col-sm-12 mb-3">
+        <div class="col">
             <div class="column-header">
-                <h2>Agendamentos</h2>
-                @if (Auth::user()->type != 'doctor')
-                    <a href="{{ url('/scheduling/create') }}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
-                @else
-                    <a href="{{ url('/scheduling') }}" class="btn btn-success me-2 ms-auto btn-lg">Lista</a>
-                @endif
+                <h2>Lista de agendamentos</h2>
             </div>
             <div class="column-content">
                 @foreach($schedulings as $scheduling)
-                    <div class="user-card card mb-3">
+                    <div class="user-card card mb-3" style="width: 150vh" >
                         <div class="card-body d-flex align-items-center">
                             <div class="user-info">
                                 <h3 class="mb-1">{{ $scheduling->status == 'Completed' ? 'Completo' : ($scheduling->status == 'Pending' ? 'Em espera' : ($scheduling->status == 'In Progress' ? ' Em andamento' : 'Cancelado')) }}</h3>
                                 <small class="text-muted">{{ $scheduling->scheduled_at->format('d/m/Y') }}</small>
                             </div>
                             <a href="{{url('/scheduling/show/'.$scheduling->id)}}" class="btn btn-sm btn-info ms-auto me-1">Ver</a>
-                            @if (Auth::user()->type == 'doctor' && $scheduling->doctor_id == Auth::user()->profile->id && $scheduling->status != "Completed")
-                                <a href="{{url('/anamnese/create/'.$scheduling->id)}}" class="btn btn-sm btn-info">Anamnese</a>
-                            @endif
                         </div>
                     </div>
                 @endforeach
             </div>
-        </div>
-
-        <!-- Coluna: Espaços Reservados -->
-        <div class="col-lg-4 col-md-5 col-sm-12">
-            <div class="column-header">
-                <h2>Cadastrar Paciente</h2>
-                <a href="{{ url('/admin/create/patient') }}" class="btn btn-success me-2 ms-auto btn-lg">Criar</a>
-            </div>
-            {{-- <div class="column-content">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <p>Espaço reservado 1</p>
-                    </div>
-                </div>
-                <div class="p-3 border bg-light">
-                    <h5>Vazio</h5>
-                </div>
-            </div> --}}
         </div>
     </div>
 @endsection
