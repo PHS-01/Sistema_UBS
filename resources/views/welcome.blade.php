@@ -9,7 +9,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80vh;
             flex-direction: column;
         }
 
@@ -42,8 +41,7 @@
 
         /* Estilo para as colunas */
         .col {
-            min-height: 400px;
-            height: auto;
+            height: 60vh;
             border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 0;
